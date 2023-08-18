@@ -1,0 +1,76 @@
+{
+  "name": "vue3-ts-music",
+  "private": true,
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview --port 5050",
+    "typecheck": "vue-tsc --noEmit",
+    "api_server": "node ../NeteaseCloudMusicApi-master/app.js",
+    "electron": "wait-on tcp:3000  && electron . ",
+    "electron:server": "concurrently  -k \"npm run api_server\" \"npm run dev\" \"npm run electron\"",
+    "electron:build": "vite build && electron-builder --win --ia32"
+  },
+  "dependencies": {
+    "@icon-park/vue-next": "^1.3.6",
+    "axios": "^0.26.0",
+    "dayjs": "^1.10.8",
+    "electron-store": "^8.1.0",
+    "element-plus": "^2.0.4",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "pinia": "^2.0.11",
+    "swiper": "^8.0.6",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.12"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.179",
+    "@types/lodash-es": "*",
+    "@types/node": "^16.11.25",
+    "@vitejs/plugin-vue": "^2.2.2",
+    "@vitejs/plugin-vue-jsx": "^1.3.7",
+    "@vue/tsconfig": "^0.1.3",
+    "@vueuse/components": "^7.7.0",
+    "@vueuse/core": "^7.7.0",
+    "autoprefixer": "^10.4.2",
+    "concurrently": "^8.1.0",
+    "cross-env": "^7.0.3",
+    "electron": "^19.1.9",
+    "electron-builder": "^23.6.0",
+    "postcss": "^8.4.7",
+    "sass": "^1.49.9",
+    "tailwindcss": "^3.0.23",
+    "typescript": "~4.5.5",
+    "unplugin-auto-import": "^0.6.1",
+    "unplugin-vue-components": "^0.17.21",
+    "vite": "^2.8.4",
+    "vite-plugin-optimize-persist": "^0.1.2",
+    "vue-tsc": "^0.31.4",
+    "wait-on": "^7.0.1"
+  },
+  "build": {
+    "appId": "com.zjjhy.App",
+    "productName": "音乐程序",
+    "copyright": "Copyright © 2023 <your-name>",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    },
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "public/icon/music.png"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist_electron"
+    }
+  }
+}
