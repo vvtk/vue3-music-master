@@ -97,6 +97,9 @@
       background-size: 0% 100%;
       animation: scan 5s linear infinite;
     }
+    .no-animation{
+      -webkit-animation: none !important;
+    }
     .paused {
       animation-play-state: paused;
       -webkit-animation-play-state: paused;
@@ -126,7 +129,7 @@
   </style>
   <body class="lock">
     <div class="center icon_div">
-      <a class="icon-xiayishou iconfont reversal" title="上一首"></a>
+      <a class="icon-xiayishou iconfont reversal" title="上一首" onclick="music.postMessage(`Previous Song`);"></a>
       <a
         class="icon-kaiqi iconfont"
         title="开启"
@@ -138,9 +141,9 @@
         title="暂停"
         onclick="data.play=true"
       ></a>
-      <a class="icon-xiayishou iconfont" title="下一首"></a>
+      <a class="icon-xiayishou iconfont" title="下一首"  onclick="music.postMessage(`Next Song`);"></a>
       <div class="partition"></div>
-      <a class="icon-guangpan iconfont" title="打开主界面" onclick=" window.MusicApp.ainwinShow()"></a>
+      <a class="icon-guangpan iconfont" title="打开主界面" onclick=" window?.MusicApp?.ainwinShow()"></a>
       <a
         class="icon-suoding iconfont"
         onclick="data.lock=true"
@@ -161,6 +164,19 @@
     </div>
   </body>
   <script>
+    const lyric=new BroadcastChannel("lyric");
+    const music=new BroadcastChannel("music");
+    const text=document.querySelector(".lyric.lyric_text");
+    lyric.onmessage=e=>{
+     const set=e.data;
+     text.classList.add("no-animation");
+     data.text=set.text;
+     setTimeout(()=>{
+      text.classList.remove("no-animation");
+      text.style.animation=`scan ${set.time??5000}ms linear infinite`
+    },10)
+    }
+
     var data = new Proxy(
       { text: "音乐软件 听我想听", lock: false, play: false },
       {
@@ -173,10 +189,10 @@
               const body = document.querySelector("body").classList;
               if (value) {
                 body.remove("lock");
-                window.MusicApp.setIgnoreMouseEvents(true, { forward: true });
+                window?.MusicApp?.setIgnoreMouseEvents(true, { forward: true });
               } else {
                 body.add("lock");
-                window.MusicApp.setIgnoreMouseEvents(false);
+                window?.MusicApp?.setIgnoreMouseEvents(false);
               }
               break;
             case "play":
@@ -187,10 +203,12 @@
                 zanting.style.display = "none";
                 kaiqi.style.display = "block";
                 play.classList.add("paused");
+                music.postMessage("paused");
               } else {
                 kaiqi.style.display = "none";
                 zanting.style.display = "block";
                 play.classList.remove("paused");
+                music.postMessage("play");
               }
               break;
             default:
@@ -203,17 +221,17 @@
       const lock_ffo = document.querySelector(".icon_div:nth-child(1)");
       const lock_on = document.querySelector(".icon_div:nth-child(2) .icon-suoding.iconfont");
       lock_on.onmouseenter = function () {
-        window.MusicApp.setIgnoreMouseEvents(false);
+        window?.MusicApp?.setIgnoreMouseEvents(false);
       };
       lock_on.onmouseleave = function () {
-        window.MusicApp.setIgnoreMouseEvents(true, { forward: true });
+        window?.MusicApp?.setIgnoreMouseEvents(true, { forward: true });
       };
       lock_ffo.onmouseenter = function () {
-        window.MusicApp.setIgnoreMouseEvents(false);
+        window?.MusicApp?.setIgnoreMouseEvents(false);
       };
       })();
     function colse() {
-      window.MusicApp.colse();
+      window?.MusicApp?.colse();
     }
   </script>
 </html>
