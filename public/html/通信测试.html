@@ -18,7 +18,7 @@
     let time=document.querySelector(".time")
     const b=document.querySelector("b")
     const lyric=new BroadcastChannel("lyric");
-    const music=new BroadcastChannel("music");
+    const music=new BroadcastChannel("music"); 
     function sending(){
         lyric.postMessage({text:text.value,time:time.value});
     }
