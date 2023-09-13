@@ -1,43 +1,25 @@
 // electron/main.js
-require("./env.js")
+
 // 控制应用生命周期和创建原生浏览器窗口的模组
-const {
-  app,
-  BrowserWindow,
-  screen
-} = require('electron');
-const {
-  Tray
-} = require('electron');
+const { app, BrowserWindow } = require('electron');
+const { Tray } = require('electron');
 const path = require('path');
 const SuspendBall = require('./wins/ball');
 const Suspendmain = require('./wins/main');
 const win_Tray = require('./tray.js');
-const {
-  useCookie
-} = require('./components/useCookie');
-const Suspendlyric = require("./wins/lyric.js");
-function createlyric(mainwin) {
-  new Suspendlyric({
-    maxHeight:screen.getPrimaryDisplay().workAreaSize.height/5,
-    maxWidth:screen.getPrimaryDisplay().workAreaSize.width,
-    x:(screen.getPrimaryDisplay().workAreaSize.width-800)/2,
-    y:screen.getPrimaryDisplay().workAreaSize.height-150
-  },mainwin)
-}
-function createWindow() {
-  const ball = new SuspendBall()
-  ball.win.on("show",async function () {
-    // 服务器
-   if(process.env.NODE_ENV!="development") await require('./express/server');
-   //创建主页面
-      const mainWin = new Suspendmain()
-      mainWin.on("show", function () {
-        ball.win.close()
-        createlyric()
-        new win_Tray(mainWin.win).create();
-      })
-  })
+const { useCookie } = require('./components/useCookie');
+
+// const NODE_ENV = process.env.NODE_ENV
+process.env.NODE_ENV= "development"
+function createWindow () {
+   const ball= new SuspendBall()
+   ball.win.on("show",function(){
+    const mainWin=new Suspendmain()
+
+    mainWin.on("show",function(){
+      ball.win.close()
+    })
+   })
 
 }
 useCookie();
@@ -46,6 +28,8 @@ useCookie();
 // 部分 API 在 ready 事件触发后才能使用。
 app.whenReady().then(() => {
   createWindow();
+  const winTray =new win_Tray();
+  winTray.create()
   app.on('activate', function () {
     // 通常在 macOS 上，当点击 dock 中的应用程序图标时，如果没有其他
     // 打开的窗口，那么程序会重新创建一个窗口。

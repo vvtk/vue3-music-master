@@ -1,3 +1,4 @@
+<!-- 专辑详情页之列表 -->
 <template>
   <div class="mt-2">
     <div class="flex text-xs text-gray-400 py-2">

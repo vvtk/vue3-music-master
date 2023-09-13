@@ -10,7 +10,7 @@
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
     "api_server": "node ../NeteaseCloudMusicApi-master/app.js",
-    "electron": "wait-on tcp:3000  && electron . ",
+    "electron": "wait-on tcp:3000 && electron .",
     "electron:server": "concurrently  -k \"npm run api_server\" \"npm run dev\" \"npm run electron\"",
     "electron:build": "vite build && electron-builder --win --ia32"
   },
@@ -20,11 +20,12 @@
     "dayjs": "^1.10.8",
     "electron-store": "^8.1.0",
     "element-plus": "^2.0.4",
-    "express": "^4.18.2",
     "lodash": "^4.17.21",
+    "openai": "^4.2.0",
     "pinia": "^2.0.11",
     "swiper": "^8.0.6",
     "vue": "^3.2.31",
+    "vue-lazyload": "^3.0.0",
     "vue-router": "^4.0.12"
   },
   "devDependencies": {
@@ -48,7 +49,6 @@
     "unplugin-auto-import": "^0.6.1",
     "unplugin-vue-components": "^0.17.21",
     "vite": "^2.8.4",
-    "vite-plugin-optimize-persist": "^0.1.2",
     "vue-tsc": "^0.31.4",
     "wait-on": "^7.0.1"
   },
@@ -65,8 +65,7 @@
     },
     "files": [
       "dist/**/*",
-      "electron/**/*",
-      "public/icon/music.png"
+      "electron/**/*"
     ],
     "directories": {
       "buildResources": "assets",

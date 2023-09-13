@@ -94,12 +94,12 @@ const router = createRouter({
                     }
                 },
                 {
-                    path: 'dj',
-                    name: 'dj',
-                    component: () => import('@/views/dj/DJ.vue'),
+                    path: 'musicTeacher',
+                    name: 'musicTeacher',
+                    component: () => import('@/views/musicTeacher/MusicTeacher.vue'),
                     meta: {
-                        menu: 'dj',
-                        title: '电台',
+                        menu: 'musicTeacher',
+                        title: '音乐导师',
                         keepAlive: true,
                     }
                 },

@@ -18,7 +18,7 @@ export const useHostStore = defineStore('host', {
         },
         setHost(host: string) {
             localStorage.setItem('BASE_URL', host)
-            // location.reload()
+            location.reload()
         }
     }
 })

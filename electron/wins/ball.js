@@ -24,7 +24,7 @@ class SuspendBall extends events{
         this.win.loadURL(
             process.env.NODE_ENV === 'development'
         ? 'http://127.0.0.1:3001/html/ball_loading.html'
-        :`${path.join(__dirname, '../../public/html/ball_loading.html')}`
+        :`file://${path.join(__dirname, '../html/ball_loading.html')}`
         )
         this.init()
     }

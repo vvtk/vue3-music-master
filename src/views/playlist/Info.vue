@@ -1,6 +1,7 @@
+<!-- 专辑详情页之信息 -->
 <template>
   <div class="flex items-stretch">
-    <img :src="playlist.coverImgUrl" alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0">
+    <img alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0" v-lazy="playlist.coverImgUrl">
     <div class="pl-5 flex flex-col justify-between py-1 flex-1">
       <div>
         <div class="text-2xl font-bold">{{ playlist.name }}</div>

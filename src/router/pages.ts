@@ -13,3 +13,4 @@ export const Pages = {
     video: 'video',
     dj: 'dj',
 }
+

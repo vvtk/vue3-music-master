@@ -5,7 +5,7 @@
         <template #reference>
           <button class="button-outline px-5">
             <span class="mr-2">全部视频</span>
-            <IconPark :icon="Right"/>
+            <IconPark :icon="Right" />
           </button>
         </template>
         <div>
@@ -13,13 +13,8 @@
           <div class="h-96 py-5 pl-5">
             <ElScrollbar>
               <div class="text-xs gap-5 grid grid-flow-row grid-cols-5">
-                <div
-                    class="hover-text"
-                    :class="{'text-active':pageData.id===item.id}"
-                    v-for="item in videoGroup"
-                    :key="item.id"
-                    @click="idChange(item.id)"
-                >{{ item.name }}
+                <div class="hover-text" :class="{ 'text-active': pageData.id === item.id }" v-for="item in videoGroup"
+                  :key="item.id" @click="idChange(item.id)">{{ item.name }}
                 </div>
               </div>
             </ElScrollbar>
@@ -28,37 +23,49 @@
       </el-popover>
 
       <div class="text-xs flex gap-x-4">
-        <div
-            class="hover-text"
-            @click="idChange(item.id)"
-            :class="{'text-active':pageData.id===item.id}"
-            v-for="item in videoGroup.slice(0, 8)"
-            :key="item.id"
-        >{{ item.name }}
+        <div class="hover-text" @click="idChange(item.id)" :class="{ 'text-active': pageData.id === item.id }"
+          v-for="item in videoGroup.slice(0, 8)" :key="item.id">{{ item.name }}
         </div>
       </div>
     </div>
-    <div class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
-      <div v-for="{data} in videoList" :key="data.vid">
-        <CoverPlay :pic-url="data.coverUrl" video/>
-        <div class="text-xs mt-3 truncate">{{ data.title }}</div>
-      </div>
-    </div>
+
+
+    <!-- 播放内容 -->
+    <el-skeleton style="width: auto" :loading="videoList.length == 0" animated>
+      <!-- 骨架屏 -->
+      <template #template>
+        <div class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
+          <div v-for="item in 40" :key="item" style="height: 20vw;height: 15vw;" >
+            <el-skeleton-item class="banner-image" style="height: 100%;height: 90%;" />
+            <el-skeleton-item class="banner-image" style="height: 100%;height: 7%;" />
+          </div>
+        </div>
+      </template>
+      <!-- 默认显示 -->
+      <template #default>
+        <div class="grid grid-flow-row grid-cols-3 gap-5 mt-5">
+          <div v-for="{ data } in videoList" :key="data.vid">
+            <CoverPlay :pic-url="data.coverUrl" video />
+            <div class="text-xs mt-3 truncate">{{ data.title }}</div>
+          </div>
+        </div>
+      </template>
+    </el-skeleton>
   </div>
 </template>
 
 <script setup lang="ts">
-import {Right} from "@icon-park/vue-next"
-import {useVideoStore} from '@/stores/video';
-import {onMounted, reactive, ref, toRefs} from 'vue';
+import { Right } from "@icon-park/vue-next"
+import { useVideoStore } from '@/stores/video';
+import { onMounted, reactive, ref, toRefs } from 'vue';
 import IconPark from '@/components/common/IconPark.vue';
-import type {Video} from "@/models/video";
-import {useVideoGroup} from "@/utils/api";
+import type { Video } from "@/models/video";
+import { useVideoGroup } from "@/utils/api";
 import CoverPlay from "@/components/common/CoverPlay.vue";
 
 
-const {videoGroup} = toRefs(useVideoStore())
-const {getVideoGroup} = useVideoStore()
+const { videoGroup } = toRefs(useVideoStore())
+const { getVideoGroup } = useVideoStore()
 
 const videoList = ref<Video[]>([])
 
@@ -85,5 +92,4 @@ onMounted(() => {
 })
 
 </script>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

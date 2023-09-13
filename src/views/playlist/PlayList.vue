@@ -1,3 +1,4 @@
+<!-- 歌单播放列表,将info和songList导入 -->
 <template>
   <div class="playlist">
     <div class="p-5" v-if="playlist">

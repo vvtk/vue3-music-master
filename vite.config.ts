@@ -1,10 +1,11 @@
-import { fileURLToPath, URL } from 'url'
-import { defineConfig } from 'vite'
+import {fileURLToPath, URL} from 'url'
+import {defineConfig} from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
+
 export default defineConfig({
     plugins: [
         vue(),
@@ -21,15 +22,8 @@ export default defineConfig({
         }
     },
     //base:'/vue3-music/',
-    base: "./",
     build: {
-        terserOptions: {
-            compress: {
-                // 生产环境时移除console.log调试代码
-                drop_console: true,
-                drop_debugger: true
-            }
-        }
+        outDir: 'dist',
     },
     server: {
         port: 3001,

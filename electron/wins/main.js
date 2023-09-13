@@ -19,7 +19,6 @@ const winconfig = {
     webPreferences: {
         // NodeIntegration: true,
         // contextIsolation: false,
-        contextIsolation: true,
         preload: path.join(__dirname, '../preload/preload.js')
     }
 }
@@ -33,7 +32,7 @@ class Suspendmain extends events {
             process.env.NODE_ENV === 'development' ?
             'http://127.0.0.1:3001/vue3-music' :
             // 'https://zlq520.gitee.io/music/#/likeMusic' :
-            `http://127.0.0.1:1024/index.html`
+            `file://${path.join(__dirname, '../dist/index.html')}`
         )
         // 打开开发工具
         if (process.env.NODE_ENV === "development") {
@@ -43,9 +42,9 @@ class Suspendmain extends events {
     }
     init() {
         this.win.once('ready-to-show', () => {
-            setTimeout(()=>{this.win.show()},2000)
+            this.win.show()
         })
-        this.win.once('show', () => {
+        this.win.on('show', () => {
             this.emit('show')
         })
         this.listenIpc()
@@ -64,8 +63,7 @@ class Suspendmain extends events {
             }
         })
         ipcMain.on('mainwin-colse', () => {
-            // app.quit()
-            this.win.hide()
+            app.quit()
         })
         this.win.setAspectRatio(1024/625)
         Download.bind(this.win)()

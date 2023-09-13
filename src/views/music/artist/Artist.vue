@@ -14,17 +14,37 @@
       </div>
     </div>
   </div>
-  <div class="grid grid-flow-row grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5">
-    <div v-for="artist in artists" :key="artist.id" class="flex items-center flex-col"
-         @click="router.push({name:'artistDetail',query:{id:artist.id}})">
-      <img :src="artist.img1v1Url+'?param=120y120'" alt=""
-           class="rounded-full cursor-pointer w-full aspect-square object-cover bg-dc"/>
-      <div class="mt-2 text-sm">{{ artist.name }}</div>
-    </div>
-  </div>
-  <div class="py-10">
-    <el-button type="text" class="text-center  w-full" @click="loadMore" :loading="pageData.loading">加载更多</el-button>
-  </div>
+
+  <el-skeleton style="width: auto" :loading="artists.length == 0" animated>
+    <!-- 骨架屏 -->
+    <template #template>
+      <div class="grid grid-flow-row grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5">
+        <div  v-for="item in 50" :key="item">
+            <el-skeleton-item class="banner-image"  style="height: 7vw;width: 7vw;"   variant="circle"  />
+            <el-skeleton-item />
+          </div>
+      </div>
+    </template>
+    <!-- 默认显示 -->
+    <template #default>
+      <div class="grid grid-flow-row grid-cols-6 xl:grid-cols-8 2xl:grid-cols-10 gap-5">
+        <div v-for="artist in artists" :key="artist.id" class="flex items-center flex-col"
+            @click="router.push({name:'artistDetail',query:{id:artist.id}})">
+          <img 
+              class="rounded-full cursor-pointer w-full aspect-square object-cover bg-dc"
+              v-lazy="artist.img1v1Url+'?param=120y120'"
+              />
+          <div class="mt-2 text-sm">{{ artist.name }}</div>
+        </div>
+      </div>
+      <div class="py-10">
+        <el-button type="text" class="text-center  w-full" @click="loadMore" :loading="pageData.loading">加载更多</el-button>
+      </div>
+    </template>
+  </el-skeleton>
+
+
+
 </template>
 
 <script setup lang="ts">

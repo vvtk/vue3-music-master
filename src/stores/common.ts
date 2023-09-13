@@ -6,10 +6,14 @@ import type { Banner } from "@/models/banner";
 export const useCommonStore = defineStore("common", () => {
   const banners = ref<Banner[]>([]);
 
+  console.log(banners)
+
   const getBanners = async () => {
     if (banners.value.length) return;
     banners.value = await useBanner();
   };
+
+  console.log(banners)
 
   return {
     banners,

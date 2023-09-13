@@ -1,3 +1,4 @@
+// 音乐播放器
 import {defineStore, storeToRefs} from "pinia";
 import {useDetail, useSongUrl} from "@/utils/api";
 import {onMounted, onUnmounted, toRefs, watch} from "vue";
@@ -89,12 +90,21 @@ export const usePlayerStore = defineStore({
             }, 500)
         },
         async play(id: number) {
+
+            // 如果相同则不执行接下来的代码
             if (id == this.id) return;
+            // 设置状态
+            this.isPause = false
             this.isPlaying = false
+            
+            // 请求音乐
             const data = await useSongUrl(id)
             this.audio.src = data.url;
+            // 更新共享状态中的播放对象
             this.audio.play().then(res => {
+                this.isPause = true
                 this.isPlaying = true
+                console.log( this.isPlaying)
                 this.songUrl = data
                 this.url = data.url
                 this.id = id;
@@ -151,11 +161,11 @@ export const usePlayerStore = defineStore({
         togglePlay() {
             if (!this.song.id) return;
             this.isPlaying = !this.isPlaying
-            if (!this.isPlaying) {
-                this.audio.pause();
+            if (!!this.isPlaying) {
                 this.isPause = true
-            } else {
                 this.audio.play();
+            } else {
+                this.audio.pause();
                 this.isPause = false
             }
         },

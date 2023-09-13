@@ -19,9 +19,8 @@
     </div>
   </div>
 </template>
-
 <script setup lang="ts">
-import { HamburgerButton, Left, Mail, Platte, Right, Search, Close, Minus, FullScreen } from '@icon-park/vue-next'
+import { HamburgerButton, Left, Mail, Platte, Right, Search, Close, Minus, FullScreen,BrowserChrome } from '@icon-park/vue-next'
 import { useRouter } from "vue-router";
 import IconPark from "@/components/common/IconPark.vue";
 import UserInfo from "@/components/layout/header/UserInfo.vue";
@@ -42,9 +41,16 @@ const changeThemeMode = () => {
   window.document.documentElement.setAttribute('data-theme', mode.value ? 'dark' : 'light')
   mode.value = !mode.value;
 }
+
+const duolie =()=>{
+
+}
+
 const close=()=>(window as any).MusicApp.colse()
 const minimize=()=>(window as any).MusicApp.minimize()
 const maximize=()=>(window as any).MusicApp.maximize()
+
+
 </script>
 <style lang="scss" scoped>
 .search {

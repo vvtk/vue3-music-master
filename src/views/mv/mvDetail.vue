@@ -2,7 +2,7 @@
   <div class="p-5" v-if="mvUrl">
     <div class="flex gap-x-5">
       <div class="flex-1">
-        <video class="aspect-video w-full" :src="mvUrl?.url" autoplay controls/>
+        <video class="aspect-video w-full" :src="mvUrl?.url" autoplay controls />
       </div>
       <div class="hidden w-80 flex-shrink-0 xl:block">
         <div>大家都在看</div>
@@ -30,14 +30,14 @@ const mvUrl = ref<MvUrl>()
 onMounted(async () => {
   mvUrl.value = await useMvUrl(id)
 
-  setPause()
+  // setPause()
 })
 
-onUnmounted(() => {
-  setTimeout(() => {
-    setPlay()
-  }, 1000)
-})
+// onUnmounted(() => {
+//   setTimeout(() => {
+//     setPlay()
+//   }, 1000)
+// })
 
 
 </script>

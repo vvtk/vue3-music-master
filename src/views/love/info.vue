@@ -1,6 +1,16 @@
 <template>
     <div class="flex items-stretch">
-      <img :src="playlist?.first()?.coverImgUrl" alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0">
+      <el-skeleton style="width: auto" :loading="!playlist?.first()?.coverImgUrl" animated>
+    <!-- 骨架屏 -->
+    <template #template>
+      <el-skeleton-item class="banner-image"  style="height: 20vw;" />
+    </template>
+    <!-- 默认显示 -->
+    <template #default>
+      <img :src="playlist?.first()?.coverImgUrl" alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0" v-lazy="playlist?.first()?.coverImgUrl">
+    </template>
+  </el-skeleton>
+
       <div class="pl-5 flex flex-col py-1 flex-1">
         <div>
           <div class="text-2xl font-bold">{{ playlist?.first()?.name }}</div>

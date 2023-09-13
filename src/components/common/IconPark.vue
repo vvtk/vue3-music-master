@@ -6,6 +6,7 @@
 <script setup lang="ts">
 import type {Icon} from "@icon-park/vue-next/lib/runtime";
 
+// 设置传入值得类型限制
 defineProps<{
   icon: Icon,
   theme?: 'outline' | 'filled' | 'two-tone' | 'multi-color',
@@ -16,4 +17,5 @@ defineProps<{
   strokeLinejoin?: 'miter' | 'round' | 'bevel',
   strokeWidth?: number
 }>()
+
 </script>

@@ -1,6 +1,7 @@
+<!-- 标题 -->
 <template>
   <div class="text-xl py-3 mt-2 flex items-center">
-    <div>{{ title }}</div>
+    <div>{{ title }}1</div>
     <IconPark :icon="Right" size="25" :stroke-width="2"/>
   </div>
 </template>

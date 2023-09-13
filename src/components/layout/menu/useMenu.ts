@@ -1,6 +1,7 @@
 import {ref, watch} from "vue";
-import {Planet, Music, VideoOne, Fm, Like, Computer, DownloadThree, PlayTwo, Star} from '@icon-park/vue-next'
+import {Planet, Music, VideoOne, Fm, Like, Computer, DownloadThree, PlayTwo, Star,BrowserChrome} from '@icon-park/vue-next'
 import {useRoute, useRouter} from "vue-router";
+
 
 interface IMenu {
     name: string;
@@ -15,6 +16,7 @@ interface IMenus {
 }
 
 export function useMenu() {
+    // 侧边栏
     const menus: IMenus[] = [
         {
             name: "在线音乐",
@@ -37,12 +39,12 @@ export function useMenu() {
                     icon: VideoOne,
                     theme: 'outline',
                 },
-                // {
-                //     name: "电台",
-                //     key: "dj",
-                //     icon: Fm,
-                //     theme: 'outline',
-                // },
+                {
+                    name: "音乐导师",
+                    key: "musicTeacher",
+                    icon: BrowserChrome,
+                    theme: 'outline',
+                },
             ]
         },
         {

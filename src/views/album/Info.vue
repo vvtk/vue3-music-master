@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-stretch">
-    <img :src="album.picUrl" alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0">
+    <img :src="album.picUrl" alt="" class="w-44 h-44 object-cover rounded-xl flex-shrink-0" v-lazy="album.picUrl">
     <div class="pl-5 flex flex-col justify-between py-1 flex-1">
       <div class="flex flex-col justify-between flex-1">
         <div class="text-2xl font-bold ">{{ album.name }}</div>
